@@ -30,7 +30,23 @@ Key steps included:
 - Checking for NULL values
 - Making column names uniform
 
-![changing column names](scripts/data_transformation_01.sql)
+```sql
+CREATE OR REPLACE TABLE `sports_data.skill_rankings` AS
+SELECT SPORT AS sport,
+Endurance AS endurance,
+Strength AS strength,
+Power AS power,
+Speed AS speed,
+Agility as Agility,
+Flexibility AS flexibility,
+Nerve AS nerve,
+Durability AS durability,
+`Hand-eye coordination` AS hand_eye_coordination,
+`Analytical Aptitude` AS analytical_aptitude,
+Total AS total_score,
+Rank AS rank 
+FROM `sports_data.skill_rankings`;
+```
 
 ### Feature Engineering
 New columns were created to improve comparability:
@@ -40,8 +56,52 @@ New columns were created to improve comparability:
 - Average Finesse Score
 - Category (what type of sport a sport is)
 - Adjusted score (based on equal weighting of all categories)
-  
-![creating categories](scripts/data_enrichment_02.sql)
+
+```sql
+ALTER TABLE `sports_data.skill_rankings`
+ADD COLUMN category STRING;
+
+UPDATE `sports_data.skill_rankings` 
+SET category = CASE 
+    -- Using TRIM and LOWER makes the search case-insensitive and ignores accidental spaces
+    WHEN LOWER(TRIM(sport)) IN ('boxing', 'wrestling', 'martial arts', 'fencing', 'football', 'rugby') THEN 'Combat & Contact'
+    
+    WHEN LOWER(TRIM(sport)) IN ('basketball', 'ice hockey', 'soccer', 'baseball/softball', 'volleyball', 'water polo', 'lacrosse', 'field hockey', 'team handball') THEN 'Team Ball'
+    
+    WHEN LOWER(TRIM(sport)) IN ('tennis', 'racquetball/squash', 'badminton', 'table tennis', 'golf', 'bowling', 'billiards', 'curling', 'archery', 'shooting') THEN 'Precision & Racket'
+    
+    WHEN LOWER(TRIM(sport)) LIKE 'track and field%' THEN 'Track & Field'
+    
+    WHEN LOWER(TRIM(sport)) IN ('swimming (all strokes): sprints', 'swimming (all strokes): distance', 'diving', 'water skiing', 'canoe/kayak', 'surfing', 'rowing') THEN 'Water Sports'
+    
+    WHEN LOWER(TRIM(sport)) IN ('speed skating', 'figure skating', 'ski jumping', 'skiing: nordic', 'skiing: freestyle', 'skiing: alpine', 'bobsledding/luge', 'roller skating') THEN 'Winter & Skating'
+    
+    WHEN LOWER(TRIM(sport)) IN ('cycling: sprints', 'cycling: distance', 'auto racing', 'horse racing', 'skateboarding') THEN 'Racing & Extreme'
+    
+    WHEN LOWER(TRIM(sport)) IN ('gymnastics', 'cheerleading', 'weight-lifting') THEN 'Technical & Strength'
+    
+    WHEN LOWER(TRIM(sport)) LIKE 'rodeo%' OR LOWER(TRIM(sport)) IN ('equestrian', 'fishing') THEN 'Rodeo & Outdoor'
+    
+    ELSE 'Other' 
+END
+WHERE 1=1;
+```
+
+```sql
+ALTER TABLE `sports_data.skill_rankings` 
+ADD COLUMN physicality_score FLOAT64,
+ADD COLUMN finesse_score FLOAT64,
+ADD COLUMN mental_score FLOAT64;
+
+UPDATE `sports_data.skill_rankings`
+SET 
+    physicality_score = ROUND((strength + power + durability + speed + endurance + flexibility) / 6, 2),
+    
+    finesse_score = ROUND((agility + hand_eye_coordination) / 2, 2),
+    
+    mental_toughness_index = ROUND((nerve + analytical_aptitude) / 2, 2)
+WHERE 1=1;
+```
 
 ![creating average score types](scripts/data_enrichment_03.sql)
 
@@ -51,9 +111,37 @@ New columns were created to improve comparability:
 With these new columns, I was able to find things such as:
 
 - Original Rankings vs. Adjusted Rankings
-![creating average score types](scripts/data_analysis_01.sql)
+```sql
+SELECT 
+    sport, 
+    total_athletic_index, 
+    RANK() OVER (ORDER BY total_athletic_index DESC) AS custom_rank,
+    rank AS original_rank
+FROM `sports_data.skill_rankings`
+ORDER BY total_athletic_index DESC;
+```
+
 - Dominance Gap (difference between strongest and weakest category to show which sport relied most on 1 metric.)
-![creating average score types](scripts/data_analysis_09.sql)
+```sql
+SELECT 
+    sport,
+    category,
+    physicality_score,
+    finesse_score,
+    mental_score,
+    ROUND(GREATEST(physicality_score, finesse_score, mental_score) - 
+          LEAST(physicality_score, finesse_score, mental_score), 2) AS skill_gap,
+    CASE 
+        WHEN (GREATEST(physicality_score, finesse_score, mental_score) - 
+              LEAST(physicality_score, finesse_score, mental_score)) < 1.5 THEN 'Generalist'
+        WHEN (GREATEST(physicality_score, finesse_score, mental_score) - 
+              LEAST(physicality_score, finesse_score, mental_score)) > 3.0 THEN 'Specialist'
+        ELSE 'Balanced'
+    END AS athlete_type
+FROM `sports_data.skill_rankings`
+ORDER BY skill_gap ASC;
+```
+
 - Dominant Category (most influential skill dimension per sport)
 
 
