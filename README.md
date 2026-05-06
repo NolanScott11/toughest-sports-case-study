@@ -170,7 +170,7 @@ Shows how sports move between original and adjusted rankings.
 ![Slope Chart](images/Tableau%20original%20vs%20adjusted.png)
 
 **Key Insight:**  
-Reweighting reveals significant ranking changes, suggesting traditional systems favor physical intensity over skill-based evaluation.
+Reweighting reveals significant ranking changes, suggesting traditional systems favor physical intensity over skill-based evaluation. The original #1 was boxing and after evaluating again the #1 became ice hockey. As shown, most sports only moved a few spots if any, but auto racing moved 17 spots showcasing its lack of physicality while still excelling in some of the other categories.
 
 ---
 
@@ -183,15 +183,7 @@ Bar charts showing top-performing sports in:
 
 ![Slope Chart](images/Tableau%20top%20at%20each%20score%20type.png)
 
----
-
-
-
-
-
----
-
-### 4. Dominance Gap (Specialization Analysis)
+### 3. Dominance Gap (Specialization Analysis)
 
 Shows how unbalanced each sport is across categories.
 
@@ -199,7 +191,7 @@ Shows how unbalanced each sport is across categories.
 ![Slope Chart](images/Tableau%20smallest%20diff.png)
 
 **Key Insight:**  
-Some sports are highly specialized toward one dominant skill type, while others are more balanced across all dimensions.
+Some sports are highly specialized toward one dominant skill type, while others are more balanced across all dimensions. The greatest difference, auto racing, shows that it has a huge outlier in the mental category compared to the others. 
 
 ---
 
