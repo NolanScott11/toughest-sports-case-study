@@ -30,7 +30,7 @@ Key steps included:
 - Checking for NULL values
 - Making column names uniform
 
-![changing column names]('scripts/data_transformation_01')
+![changing column names](scripts/data_transformation_01.sql)
 
 ### Feature Engineering
 New columns were created to improve comparability:
@@ -41,9 +41,9 @@ New columns were created to improve comparability:
 - Category (what type of sport a sport is)
 - Adjusted score (based on equal weighting of all categories)
   
-![creating categories]('scripts/data_enrichment_02')
+![creating categories](scripts/data_enrichment_02.sql)
 
-![creating average score types]('scripts/data_enrichment_03')
+![creating average score types](scripts/data_enrichment_03.sql)
 
 
 ### Data Analysis
@@ -51,9 +51,9 @@ New columns were created to improve comparability:
 With these new columns, I was able to find things such as:
 
 - Original Rankings vs. Adjusted Rankings
-![creating average score types]('scripts/data_analysis_01')
+![creating average score types](scripts/data_analysis_01.sql)
 - Dominance Gap (difference between strongest and weakest category to show which sport relied most on 1 metric.)
-![creating average score types]('scripts/data_analysis_09')
+![creating average score types](scripts/data_analysis_09.sql)
 - Dominant Category (most influential skill dimension per sport)
 
 
