@@ -167,7 +167,7 @@ The analysis compares sports across multiple perspectives:
 
 Shows how sports move between original and adjusted rankings.
 
-![Slope Chart](images/Tableau original vs adjusted.png)
+![Slope Chart](images/Tableau%20original%20vs%20adjusted.png)
 
 **Key Insight:**  
 Reweighting reveals significant ranking changes, suggesting traditional systems favor physical intensity over skill-based evaluation.
@@ -181,15 +181,13 @@ Bar charts showing top-performing sports in:
 - Mental skill
 - Finesse
 
-![Category Charts](images/category_bars.png)
+![Slope Chart](images/Tableau%20top%20at%20each%20score%20type.png)
 
 ---
 
-### 3. Skill vs Physicality Relationship
 
-Scatter plot showing how sports cluster based on physical vs mental demand.
 
-![Scatter Plot](images/scatter.png)
+
 
 ---
 
@@ -197,7 +195,8 @@ Scatter plot showing how sports cluster based on physical vs mental demand.
 
 Shows how unbalanced each sport is across categories.
 
-![Dominance Chart](images/dominance.png)
+![Slope Chart](images/Tableau%20greatest%20diff.png)
+![Slope Chart](images/Tableau%20smallest%20diff.png)
 
 **Key Insight:**  
 Some sports are highly specialized toward one dominant skill type, while others are more balanced across all dimensions.
@@ -219,13 +218,6 @@ Some sports are highly specialized toward one dominant skill type, while others 
 - Tableau Public Desktop (data visualization)
 - Excel / CSV preprocessing
 - GitHub (project documentation)
-
----
-
-## 📊 Dashboard
-
-🔗 Interactive Tableau Dashboard:  
-[Insert Tableau Public Link Here]
 
 ---
 
