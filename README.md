@@ -103,9 +103,6 @@ SET
 WHERE 1=1;
 ```
 
-![creating average score types](scripts/data_enrichment_03.sql)
-
-
 ### Data Analysis
 
 With these new columns, I was able to find things such as:
