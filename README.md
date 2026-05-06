@@ -30,19 +30,32 @@ Key steps included:
 - Checking for NULL values
 - Making column names uniform
 
-![changing column names]('images/data_transformation_01')
+![changing column names]('scripts/data_transformation_01')
 
 ### Feature Engineering
-New variables were created to improve comparability:
+New columns were created to improve comparability:
 
 - Average Physicality Score  
 - Average Mental Score  
-- Average Finesse Score  
-- Adjusted Rank (based on equal weighting of all categories)  
-- Dominance Gap (difference between strongest and weakest category)  
+- Average Finesse Score
+- Category (what type of sport a sport is)
+- Adjusted score (based on equal weighting of all categories)
+  
+![creating categories]('scripts/data_enrichment_02')
+
+![creating average score types]('scripts/data_enrichment_03')
+
+
+### Data Analysis
+
+With these new columns, I was able to find things such as:
+
+- Original Rankings vs. Adjusted Rankings
+![creating average score types]('scripts/data_analysis_01')
+- Dominance Gap (difference between strongest and weakest category to show which sport relied most on 1 metric.)
+![creating average score types]('scripts/data_analysis_09')
 - Dominant Category (most influential skill dimension per sport)
 
----
 
 ## ⚙️ Methodology
 
@@ -69,7 +82,7 @@ The analysis compares sports across multiple perspectives:
 
 Shows how sports move between original and adjusted rankings.
 
-![Slope Chart](images/slope_chart.png)
+![Slope Chart](images/Tableau original vs adjusted.png)
 
 **Key Insight:**  
 Reweighting reveals significant ranking changes, suggesting traditional systems favor physical intensity over skill-based evaluation.
